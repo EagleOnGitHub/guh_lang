@@ -2,7 +2,7 @@
 guh language, nothing to see here
 # commands
 Command | What it does
---------|--------------------------------------------------
+------- | -------------------------------------------------
 + - * / | acc <operator> dat except for + - which add/sub 1
 [ ] ; ' | dat <operator> acc except for [ ] which add/sub 1
 o p     | print ascii from acc/dat respectively
