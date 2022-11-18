@@ -6,3 +6,21 @@ edition = "2021"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
+color-backtrace = "0.5.1"
+rustyline = "10.0.0"
+
+[profile.release]
+strip = true
+opt-level = 3
+lto = true
+debug-assertions = false
+incremental = false
+panic = "abort"
+
+[profile.release.build-override]
+strip = true
+opt-level = 3
+debug-assertions = false
+
+[profile.dev]
+incremental = false
