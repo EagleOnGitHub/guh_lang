@@ -19,8 +19,8 @@ use std::fs;
 use std::io::Read;
 
 fn handle_command(s: String) {
-    let mut acc: i128 = 0;
-    let mut dat: Vec<i128> = vec!(16384);
+    let mut acc = 0;
+    let mut dat: Vec<i32> = vec!(0; 16384);
     let mut dat_pointer = 0;
     let mut backwards_label = 0;
     let mut forwards_label = 0;
@@ -33,47 +33,47 @@ fn handle_command(s: String) {
         match c {
             '+' => acc += 1,
             '-' => acc -= 1,
-            '*' => acc *= dat[dat_pointer],
-            '/' => acc /= dat[dat_pointer],
-            '[' => dat[dat_pointer] += 1,
-            ']' => dat[dat_pointer] -= 1,
-            ';' => dat[dat_pointer] *= acc,
-            '\'' => dat[dat_pointer] /= acc,
+            '*' => acc *= *&mut dat[dat_pointer],
+            '/' => acc /= *&mut dat[dat_pointer],
+            '[' => *&mut dat[dat_pointer] += 1,
+            ']' => *&mut dat[dat_pointer] -= 1,
+            ';' => *&mut dat[dat_pointer] *= acc,
+            '\'' => *&mut dat[dat_pointer] /= acc,
             'o' => print!("{}", char::from_u32(acc as u32).unwrap()),
-            'p' => print!("{}", char::from_u32(dat[dat_pointer] as u32).unwrap()),
+            'p' => print!("{}", char::from_u32(*&mut dat[dat_pointer] as u32).unwrap()),
             'k' => print!("{}", acc),
-            'l' => print!("{}", dat[dat_pointer]),
+            'l' => print!("{}", &mut dat[dat_pointer]),
             ' ' => print!(" "),
             'e' => println!(),
             'f' => forwards_label = i,
             'b' => backwards_label = i,
             'g' => {
-                if acc == dat[dat_pointer] {
+                if acc == *&mut dat[dat_pointer] {
                     i = forwards_label
                 }
             }
             'n' => {
-                if acc == dat[dat_pointer] {
+                if acc == *&mut dat[dat_pointer] {
                     i = backwards_label
                 }
             }
             'h' => {
-                if acc > dat[dat_pointer] {
+                if acc > *&mut dat[dat_pointer] {
                     i = forwards_label
                 }
             }
             'm' => {
-                if acc > dat[dat_pointer] {
+                if acc > *&mut dat[dat_pointer] {
                     i = backwards_label
                 }
             }
             'j' => {
-                if acc < dat[dat_pointer] {
+                if acc < *&mut dat[dat_pointer] {
                     i = forwards_label
                 }
             }
             '<' => {
-                if acc < dat[dat_pointer] {
+                if acc < *&mut dat[dat_pointer] {
                     i = backwards_label
                 }
             },
