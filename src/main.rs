@@ -16,7 +16,7 @@ use rustyline::error::ReadlineError;
 use rustyline::Editor;
 use std::env;
 use std::fs;
-use std::io::Read; // i feel mental pain seeing "owo" in a crate
+use std::io::Read;
 
 fn handle_command(s: String) {
     let mut acc: i128 = 0;
